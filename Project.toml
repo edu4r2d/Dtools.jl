@@ -1,7 +1,7 @@
 name = "DuTools"
 uuid = "73c671f0-943d-4098-8a4c-9538cdb752bf"
 authors = ["edu4r2d <eduardquimica@gmail.com> and contributors"]
-version = "0.0.1"
+version = "0.0.2"
 
 [compat]
 julia = "1.6.7"
