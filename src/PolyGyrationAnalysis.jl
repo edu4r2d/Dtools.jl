@@ -67,6 +67,12 @@ export run_analysis, plot_radius_of_gyration, save_radius_of_gyration
         return Rg_list
     end
 
+    @testitem "RG" begin
+
+        @test 1 == 1
+
+    end
+
     # Função para salvar os dados do raio de giro em um arquivo .dat
     function save_radius_of_gyration(Rg_list, filename::String="radius_of_gyration.dat")
         open(filename, "w") do file

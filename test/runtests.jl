@@ -1,6 +1,6 @@
 using DuTools
-using Test
+using TestItemRunner
 
-@testset "DuTools.jl" begin
-    # Write your tests here.
-end
+@run_package_tests
+
+
