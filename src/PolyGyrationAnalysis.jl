@@ -1,13 +1,6 @@
-module PolyGyrationAnalysis
+#module PolyGyrationAnalysis
 export run_analysis, plot_radius_of_gyration, save_radius_of_gyration
-using PDBTools
-using MolSimToolkit
-using StaticArrays
-using ProgressMeter
-using LinearAlgebra
-# using Statistics
-using Plots 
-using KernelDensity
+
 
     # Definir o arquivo de log
     const LOG_FILE = "debug_log.txt"
@@ -162,4 +155,4 @@ using KernelDensity
         return Rg_list
     end
 
-end # module
+#end # module
