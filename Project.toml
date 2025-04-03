@@ -12,7 +12,7 @@ MolSimToolkit = "054db54f"
 StaticArrays = "90137ffa-7385-5640-8e0f-231f21f5686e"
 Plots = "91a5bcdd"
 ProgressMeter = "92933f4c"
-KernelDensity = "c8ffd9c3"  # Verifique o UUID correto se necessário
+KernelDensity = "5ab0869b"  # Verifique o UUID correto se necessário
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
