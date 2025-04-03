@@ -1,4 +1,4 @@
-export ff, gg
+export ff
 
-function gg() end
+
 function ff() end
