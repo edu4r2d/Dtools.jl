@@ -11,7 +11,7 @@ using Plots
 using KernelDensity
 
 # Definir o arquivo de log
-const LOG_FILE = "debug_log.txt"
+const LOG_FILE = "debug_log.txt" #
 
 # Função para registrar mensagens no log
 function log_message(message)
