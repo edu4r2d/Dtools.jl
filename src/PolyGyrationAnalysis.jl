@@ -11,7 +11,7 @@ using Plots
 using KernelDensity
 
 # Definir o arquivo de log
-const LOG_FILE = "debug_log.txt" #
+const LOG_FILE = "debug_log.txt"
 
 # Função para registrar mensagens no log
 function log_message(message)
@@ -161,8 +161,6 @@ function run_analysis(pdb_file::String, traj_file::String, num_frames::Int=15000
     log_message("Cálculo do raio de giro concluído.")
     return Rg_list
 end
-
-end 
 
 # Como usar esse script:
 
