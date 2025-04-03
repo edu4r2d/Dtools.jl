@@ -1,7 +1,6 @@
 module DTools
-
 include("PolyGyrationAnalysis.jl")
-using PolyGyrationAnalysis
+#using PolyGyrationAnalysis
 
 
 # Write your package code here. Vamos realizar um test
