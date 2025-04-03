@@ -5,7 +5,7 @@ using MolSimToolkit
 using StaticArrays
 using ProgressMeter
 using LinearAlgebra
-using Statistics
+# using Statistics
 using Plots 
 using KernelDensity
 
