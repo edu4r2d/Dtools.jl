@@ -5,6 +5,7 @@ version = "0.0.2"
 
 [deps]
 KernelDensity = "5ab0869b-81aa-558d-bb23-cbf5423bbe9b"
+LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 MolSimToolkit = "054db54f-6694-444d-9bbb-e9ecdbfe77be"
 PDBTools = "e29189f1-7114-4dbd-93d0-c5673a921a58"
@@ -15,6 +16,7 @@ TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 
 [compat]
 KernelDensity = "0.6.9"
+LaTeXStrings = "1.4.0"
 LinearAlgebra = "1.11.0"
 MolSimToolkit = "1.27.0"
 PDBTools = "2.8.0"

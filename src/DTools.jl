@@ -2,16 +2,19 @@ module DTools
 
 using PDBTools
 using MolSimToolkit
+    export Simulation
 using StaticArrays
 using ProgressMeter
 using LinearAlgebra
-# using Statistics
 using Plots 
 using KernelDensity
 using TestItems: @testitem
 
 include("PolyGyrationAnalysis.jl")
-include("ramachandran.jl")
+
+
+#using LaTeXStrings: @L_str
+#include("ramachandran.jl")
 
 #using PolyGyrationAnalysis
 

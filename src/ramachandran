@@ -1,0 +1,107 @@
+#==
+
+import Pkg; Pkg.activate("/media/m3g/M3G/teste_omega_gamma/gamma/env")
+using MolSimToolkit
+using ComplexMixtures
+using Plots
+using PDBTools
+using ProgressMeter
+using LaTeXStrings
+using EasyFit
+using OrderedCollections
+using ComplexMixtures
+using OffsetArrays
+using Base.Threads
+using StatsBase
+
+==#
+
+export ramachandran, plot_ramachandran
+
+function ramachandran(polc
+        sim::Simulation;
+        v = [ (
+                "phi" => index.(polc[i+1:i+4]),
+                "psi" => index.(polc[i:i+3])
+              )
+              for i in 1:2:length(polc)-4
+            ]
+    )
+    prc = 5
+    ram = zeros(div(360,prc),div(360,prc))
+    phi_list = Float64[]
+    psi_list = Float64[]
+    @showprogress for frame in sim
+        p = positions(frame)
+        uc = unitcell(frame)
+        for angs in v
+            # phi
+            i1, i2, i3, i4 = angs[1][2]
+            if i1 isa PDBTools.Atom
+                i1, i2, i3, i4 = index.(angs[1][2])
+            end
+            p1 = p[i1]
+            p2 = MolSimToolkit.wrap(p[i2], p1, uc)
+            p3 = MolSimToolkit.wrap(p[i3], p1, uc)
+            p4 = MolSimToolkit.wrap(p[i4], p1, uc)
+            phi = dihedral(p1, p2, p3, p4)
+            push!(phi_list, phi)
+            iphi = floor(Int, (phi + 180)/prc) + 1
+            iphi == div(360,prc) + 1 && (iphi = 1)
+            # psi
+            i1, i2, i3, i4 = angs[2][2]
+            if i1 isa PDBTools.Atom
+                i1, i2, i3, i4 = index.(angs[2][2])
+            end
+            p1 = p[i1]
+            p2 = MolSimToolkit.wrap(p[i2], p1, uc)
+            p3 = MolSimToolkit.wrap(p[i3], p1, uc)
+            p4 = MolSimToolkit.wrap(p[i4], p1, uc)
+            psi = dihedral(p1, p2, p3, p4)
+            push!(psi_list, psi)
+            ipsi = floor(Int, (psi + 180)/prc) + 1
+            ipsi == div(360,prc) + 1 && (ipsi = 1)
+            ram[iphi, ipsi] += 1
+        end
+    end
+    return -180+prc/2:prc:180, -180+prc/2:prc:180, ram ./ length(sim)
+end
+
+function plot_ramachandran(x, y, z; title="", color=:seismic, cbar=:right, clims=nothing)
+    scalefontsizes()
+    scalefontsizes(2.3)
+    if isnothing(clims)
+        l = max(abs.(extrema(z))...)
+        clims = (-l,l)
+        @show clims
+    end
+    z = [ z == 0 ? missing : z for z in z ]
+    plt = contourf(MolSimStyle, x, y, transpose(z);
+        color,
+        xlabel=L"\phi~\textrm{(intra-mer)}",
+        ylabel=L"\psi~\textrm{(inter-mer)}",
+        aspect_ratio=1,
+        size=(800,800),
+        cbar,
+        lims=(-180, 180),
+        xticks=(-180:30:180,-180:30:180),
+        yticks=(-180:30:180,-180:30:180),
+        xrotation=60,
+        title,
+        clims=clims,
+        levels=50,
+        lw=0,
+        right_margin=1.4Plots.Measures.cm,
+        margin=0.5Plots.Measures.cm,
+    )
+    vline!(plt, [0]; color=:black, label="")
+    hline!(plt, [0]; color=:black, label="")
+    return plt
+end
+
+
+#sim = Simulation("box_0.pdb", "9.1_prod_reduced.dcd")
+#polc = select(atoms(sim), at -> ((resname(at) == "POL1" || resname(at) == "POL2" || resname(at) == "POL3") && (name(at) in ("C1", "C2"))))
+#phi, psi, ram = ramachandran(sim)
+#plot_ramachandran(phi, psi, ram)
+#savefig("ramachandran_plot.png")  ==#
