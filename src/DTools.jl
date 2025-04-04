@@ -12,12 +12,8 @@ using TestItems: @testitem
 
 include("PolyGyrationAnalysis.jl")
 
+using Statistics
+using LinearAlgebra: norm
+include("PolyMedianAnalysis.jl")
 
-#using LaTeXStrings: @L_str
-#include("ramachandran.jl")
-
-#using PolyGyrationAnalysis
-
-# Write your package code here. Vamos realizar um test
-
-end # module DTools
+end
