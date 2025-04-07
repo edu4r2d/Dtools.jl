@@ -16,4 +16,9 @@ using Statistics
 using LinearAlgebra: norm
 include("PolyMedianAnalysis.jl")
 
+using CSV
+using DataFrames
+using Dates
+include("FrameAnalysis.jl")
+
 end

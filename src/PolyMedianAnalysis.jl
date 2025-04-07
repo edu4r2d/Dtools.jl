@@ -1,14 +1,7 @@
 export calc_median
 
-#using PDBTools, MolSimToolkit, StaticArrays, DelimitedFiles, ProgressMeter, Statistics, Plots
-#using LinearAlgebra: norm
-
 # Constante para o arquivo de log
-const LOG_FILE = "debug_median_log.txt"
-
-# ======================================================
-#           FUNÇÕES DE UTILITÁRIOS
-# ======================================================
+const LOG_FILE = "debug_Median_log.txt"
 
 # Função para registrar mensagens no log
 function log_message(message::AbstractString)
@@ -24,12 +17,8 @@ function check_file(file_path::AbstractString)
     end
 end
 
-# ======================================================
-#           CARREGAMENTO E PREPARAÇÃO DOS DADOS
-# ======================================================
-
 # Função para carregar a simulação e selecionar os dados do polímero
-function load_simulation(pdb_file::AbstractString, traj_file::AbstractString)
+function load_simulation(pdb_file::AbstractString, traj_file::AbstractString, seg_select::AbstractString)
     log_message("Carregando arquivos: PDB: $pdb_file, Trajetória: $traj_file")
     
     # Verificar existência dos arquivos
@@ -46,7 +35,7 @@ function load_simulation(pdb_file::AbstractString, traj_file::AbstractString)
     
     # Carregar dados do PDB e selecionar os átomos do polímero
     pdb_data = readPDB(pdb_file)
-    poli_data = select(pdb_data, "segname POLI")
+    poli_data = select(pdb_data, "$seg_select")
     
     return simulation, poli_data
 end
@@ -72,12 +61,13 @@ function prepare_monomer_indices(poli_data)
     return monomer_indices
 end
 
-# ======================================================
-#           PROCESSAMENTO DOS FRAMES
-# ======================================================
-
 # Função para iterar sobre os frames e calcular as distâncias
-function analyze_distances(simulation, polymer_indices, monomer_indices, num_frames::Int)
+function analyze_distances(simulation, polymer_indices, monomer_indices, num_frames::Union{Int, Nothing}=nothing)
+    
+    if isnothing(num_frames)
+        num_frames = length(simulation)
+    end
+    
     distances_all_frames = []
     
     # Inicializar a barra de progresso
@@ -154,17 +144,30 @@ Função principal que orquestra o carregamento dos dados, processamento dos fra
 - `output_file`: Caminho absoluto para o arquivo de saída (.dat).
 - `num_frames`: Número de frames a serem processados (padrão: 150000).
 """
-function calc_median(pdb_file::AbstractString, traj_file::AbstractString, output_file::AbstractString; num_frames::Int=150000)
+function calc_median(pdb_file::AbstractString, traj_file::AbstractString, output_file::AbstractString; num_frames::Union{Nothing, Int}=nothing, seg_select::AbstractString)
     # Carregar a simulação e os dados do PDB
-    simulation, poli_data = load_simulation(pdb_file, traj_file)
+    simulation, poli_data = load_simulation(pdb_file, traj_file, seg_select)
     
     println("Saída: $output_file")
     
     # Preparar os índices dos monômeros
     monomer_indices = prepare_monomer_indices(poli_data)
+
+    # Dentro da função calc_median, extraia o nome do segmento:
+    seg_words = split(seg_select)
+    if length(seg_words) < 2
+        error("O argumento seg_select deve conter pelo menos duas palavras, por exemplo: 'segname POLI'")
+    end
+    seg_name = seg_words[2]
+
     
     # Obter os índices dos átomos do polímero na simulação
-    polymer_indices = findall(atom -> atom.segname == "POLI", atoms(simulation))
+    polymer_indices = findall(atom -> atom.segname == "$seg_name", atoms(simulation))
+
+     # Se num_frames não for fornecido, usa todos os frames disponíveis
+     if isnothing(num_frames)
+        num_frames = length(simulation)
+    end
     
     # Processar os frames para calcular as distâncias
     distances_all_frames = analyze_distances(simulation, polymer_indices, monomer_indices, num_frames)

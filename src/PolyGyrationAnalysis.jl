@@ -11,8 +11,17 @@ function log_message(message)
     end
 end
 
+function check_file(file_path::AbstractString)
+    if !isfile(file_path)
+        error("Arquivo não encontrado: $file_path")
+    end
+end
+
+# /home/m3g/.julia/dev/DTools
+
 # Função para obter todos os números de resíduos (monômeros) presentes no polímero
 function get_all_monomers(poli_data)
+    # Obter todos os números de resíduos (monômeros) presentes no polímero
     return unique(atom.resnum for atom in poli_data)
 end
 
