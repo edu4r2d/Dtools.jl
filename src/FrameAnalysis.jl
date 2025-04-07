@@ -13,7 +13,7 @@ O parâmetro `file_analise` pode ser:
 O `multiplier` é usado para calcular o limiar (threshold) a partir do desvio padrão.
 """
 function frames_counter(folders::Vector{String}; file_folder::String, file_analise, multiplier::Real)
-    base_path = @__DIR__
+    base_path = pwd()
 
     for folder in folders
         # Caminho para a pasta principal
