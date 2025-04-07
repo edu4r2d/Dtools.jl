@@ -108,7 +108,7 @@ function frames_counter(folders::Vector{String}; file_folder::String, file_anali
         println("   - Média do raio de giro: $mean_val")
         println("   - Desvio padrão: $std_val")
         println("   - Limiar (Threshold): $threshold")
-        println("   - Total de frames estendidos: $(length(extended_frames))")
+        println("   - Total de frames estendidosssssssssssssssssssss: $(length(extended_frames))")
         println("   - Total de frames compactos : $(length(compact_frames))")
     end
     println("✅ Análise de frames concluída.")
