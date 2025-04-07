@@ -1,17 +1,17 @@
 export calc_median
 
 # Constante para o arquivo de log
-const LOG_FILE = "debug_Median_log.txt"
+const LOG_MEDIAN_FILE = "debug_Median_log.txt"
 
 # Função para registrar mensagens no log
 function log_message(message::AbstractString)
-    open(LOG_FILE, "a") do file
+    open(LOG_MEDIAN_FILE, "a") do file
         write(file, message * "\n")
     end
 end
 
 # Função para verificar a existência de um arquivo
-function check_file(file_path::AbstractString)
+function check_median_file(file_path::AbstractString)
     if !isfile(file_path)
         error("Arquivo não encontrado: $file_path")
     end
@@ -22,8 +22,8 @@ function load_simulation(pdb_file::AbstractString, traj_file::AbstractString, se
     log_message("Carregando arquivos: PDB: $pdb_file, Trajetória: $traj_file")
     
     # Verificar existência dos arquivos
-    check_file(pdb_file)
-    check_file(traj_file)
+    check_median_file(pdb_file)
+    check_median_file(traj_file)
     
     println("Carregando arquivos:")
     println("  PDB: $pdb_file")

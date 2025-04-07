@@ -15,6 +15,8 @@ O `multiplier` é usado para calcular o limiar (threshold) a partir do desvio pa
 function frames_counter(folders::Vector{String}; file_folder::String, file_analise, multiplier::Real)
     base_path = pwd()
 
+    println("Iniciando a análise de frames...")
+
     for folder in folders
         # Caminho para a pasta principal
         path_main = joinpath(base_path, folder)
@@ -109,6 +111,8 @@ function frames_counter(folders::Vector{String}; file_folder::String, file_anali
         println("   - Total de frames estendidos: $(length(extended_frames))")
         println("   - Total de frames compactos : $(length(compact_frames))")
     end
+    println("✅ Análise de frames concluída.")
+
 end
 
 # Exemplo de uso:

@@ -2,11 +2,11 @@
 export calc_rg, plot_rg, sv_rg
 
 # Definir o arquivo de log
-const LOG_FILE = "debug_Gyrayion_log.txt"
+const LOG_GYRATION_FILE = "debug_Gyrayion_log.txt"
 
 # Função para registrar mensagens no log
 function log_message(message)
-    open(LOG_FILE, "a") do file
+    open(LOG_GYRATION_FILE, "a") do file
         write(file, message * "\n")
     end
 end
