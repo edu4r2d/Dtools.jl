@@ -108,7 +108,7 @@ function frames_counter(folders::Vector{String}; file_folder::String, file_anali
         println("   - Média do raio de giro: $mean_val")
         println("   - Desvio padrão: $std_val")
         println("   - Limiar (Threshold): $threshold")
-        println("   - Total de frames estendidosssssssssssssssssssss: $(length(extended_frames))")
+        println("   - Total de frames estendidos: $(length(extended_frames))")
         println("   - Total de frames compactos : $(length(compact_frames))")
     end
     println("✅ Análise de frames concluída.")
@@ -116,6 +116,6 @@ function frames_counter(folders::Vector{String}; file_folder::String, file_anali
 end
 
 # Exemplo de uso:
-#folders = ["0", "20", "40", "60", "80", "100"]
+# folders = ["0", "20", "40", "60", "80", "100"]
 # Aqui passamos uma tupla para file_analise: buscar um arquivo que comece com "median" e termine com ".dat"
-#main(folders; file_folder="analises", file_analise=("median", ".dat"), multiplier=1.55)
+# frames_counter(folders; file_folder="analises", file_analise=("radius", ".dat"), multiplier=1.55)

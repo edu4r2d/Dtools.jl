@@ -21,4 +21,7 @@ using DataFrames
 using Dates
 include("FrameAnalysis.jl")
 
+using ComplexMixtures
+include("JsonGenerate.jl")
+
 end
