@@ -24,4 +24,13 @@ include("FrameAnalysis.jl")
 using ComplexMixtures
 include("JsonGenerate.jl")
 
+using EasyFit
+    import EasyFit: movavg
+include("2DPlotMonomer.jl")
+
+using Printf
+include("PdbRenumerate.jl")
+
+include("DistancePoly.jl")
+
 end
